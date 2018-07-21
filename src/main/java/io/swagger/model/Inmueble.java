@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -16,7 +18,7 @@ import javax.validation.constraints.*;
 @ApiModel(description = "Propiedad que brinda la inmobiliaria para alquiler a sus clientes")
 @Validated
 
-public class Inmueble   {
+public class Inmueble extends ResourceSupport   {
   @JsonProperty("idInmueble")
   private String idInmueble = null;
 

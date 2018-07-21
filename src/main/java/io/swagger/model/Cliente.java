@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -15,7 +17,7 @@ import javax.validation.constraints.*;
 @ApiModel(description = "Persona que alquila los inmuebles por medio de la inmobiliaria.")
 @Validated
 
-public class Cliente   {
+public class Cliente extends ResourceSupport    {
   @JsonProperty("idCliente")
   private String idCliente = null;
 

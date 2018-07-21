@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-import io.swagger.model.*;
+import io.swagger.model.Cliente;
+import io.swagger.model.Contrato;
+import io.swagger.model.Inmueble;
 
 
 public class Utilities {
