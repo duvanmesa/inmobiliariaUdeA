@@ -13,22 +13,26 @@ import io.swagger.model.*;
 public class Utilities {
 	
 	private Hashtable<String, Cliente> clientePersistence;
-	private Hashtable<String,Contrato> contrato;
-	private Hashtable<String,Inmueble> inmueble;
+	private Hashtable<String,Contrato> contratoPersistence;
+	private Hashtable<String,Inmueble> inmueblePersistence;
 	
 	public Utilities () {
 		
 		clientePersistence = new Hashtable<String, Cliente>();
+		contratoPersistence = new Hashtable<String,Contrato>();
+		inmueblePersistence = new Hashtable<String,Inmueble> ();
+		
+		
 		clientePersistence.put("123456789", new Cliente("123456789","Cedula","Carlos","Laureles","555"));
 		clientePersistence.put("3245678", new Cliente("3245678","Cedula","Andres","Poblado","6666"));
 		clientePersistence.put("23457888", new Cliente("23457888","Cedula","Ana Sofia","Castillo","44444"));
-		contrato = new Hashtable<String,Contrato>();
-		inmueble = new Hashtable<String,Inmueble> ();
-		inmueble.put("1", new Inmueble("1", "Apartamento", "Carrera 80 b # 34 c - 04", "Medellìn", 4, BigDecimal.valueOf(1400000), 
+
+		
+		inmueblePersistence.put("1", new Inmueble("1", "Apartamento", "Carrera 80 b # 34 c - 04", "Medellìn", 4, BigDecimal.valueOf(1400000), 
 				"3 habitaciones, dos baños, cocina integral, garage cubierto, "));
-		inmueble.put("2", new Inmueble("2", "Casa", "Carrera 70 b # 35 c - 04", "Medellìn", 3, BigDecimal.valueOf(1100000), 
+		inmueblePersistence.put("2", new Inmueble("2", "Casa", "Carrera 70 b # 35 c - 04", "Medellìn", 3, BigDecimal.valueOf(1100000), 
 				"3 habitaciones, dos baños, cocina integral, garage cubierto, "));
-		inmueble.put("2", new Inmueble("3", "Apartamento", "Carrera 80 b # 84 c - 04", "Medellìn", 5, BigDecimal.valueOf(950000), 
+		inmueblePersistence.put("2", new Inmueble("3", "Apartamento", "Carrera 80 b # 84 c - 04", "Medellìn", 5, BigDecimal.valueOf(950000), 
 				"4 habitaciones, dos baños, cocina integral, garage compartido, "));
 	}
 	
@@ -73,45 +77,64 @@ public class Utilities {
 	
 	public List<Inmueble> getInmuebles() {
 		
-		List<Inmueble> inmuebles = new ArrayList<Inmueble>(inmueble.values());
+		List<Inmueble> inmuebles = new ArrayList<Inmueble>(inmueblePersistence.values());
 		return inmuebles;
 	} 
 	
 	public void addInmueble(Inmueble inmuebleRequest) {
 		
-		this.inmueble.put(inmuebleRequest.getIdInmueble(), inmuebleRequest);
+		this.inmueblePersistence.put(inmuebleRequest.getIdInmueble(), inmuebleRequest);
 		
 	}
 	
 	public Inmueble buscarInmueble(String id) {
 		
-		return inmueble.get(id);
+		return inmueblePersistence.get(id);
 	}
 	
 	public Inmueble actualizarInmueble(Inmueble inmuebleRequest,String id) {
 		
-		Inmueble inmuebleOriginal = inmueble.get(id);
+		Inmueble inmuebleOriginal = inmueblePersistence.get(id);
+		
 		inmuebleOriginal.setCiudad(inmuebleRequest.getCiudad());
 		inmuebleOriginal.setDetalles(inmuebleRequest.getDetalles());
 		inmuebleRequest.setDireccion(inmuebleRequest.getDireccion());
 		inmuebleRequest.setEstrato(inmuebleRequest.getEstrato());
 		inmuebleRequest.setTipoInmueble(inmuebleRequest.getTipoInmueble());
 
+		inmueblePersistence.put(id, inmuebleRequest);
+		
 		return inmuebleRequest;
 		
+	}
+	
+	public Inmueble eliminarInmueble(String id) {
+		
+		Inmueble inmuebles = inmueblePersistence.get(id);
+		clientePersistence.remove(id);
+		
+		return inmuebles;
 	}
 	
 	// Crear contrato
 	
 	public void addContrato(Contrato contratoRequest) {
 		
-		this.contrato.put(contratoRequest.getIdContrato(), contratoRequest);
+		this.contratoPersistence.put(contratoRequest.getIdContrato(), contratoRequest);
 		
 	}
 	
 	public Contrato buscarContrato(String id) {
 		
-		return contrato.get(id);
+		return contratoPersistence.get(id);
+	}
+	
+	public Contrato eliminarContrato(String id) {
+		
+		Contrato contrato = contratoPersistence.get(id);
+		clientePersistence.remove(id);
+		
+		return contrato;
 	}
 
 }
