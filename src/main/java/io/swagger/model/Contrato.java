@@ -1,14 +1,18 @@
 package io.swagger.model;
 
 import java.util.Objects;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.validation.annotation.Validated;
+import org.threeten.bp.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.threeten.bp.LocalDate;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * Contrato que estipula las pautas del alquiler de un inmueble a un cliente.
@@ -16,7 +20,7 @@ import javax.validation.constraints.*;
 @ApiModel(description = "Contrato que estipula las pautas del alquiler de un inmueble a un cliente.")
 @Validated
 
-public class Contrato   {
+public class Contrato extends ResourceSupport   {
   @JsonProperty("idContrato")
   private String idContrato = null;
 
