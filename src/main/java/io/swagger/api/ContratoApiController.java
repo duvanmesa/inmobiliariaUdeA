@@ -59,12 +59,13 @@ public class ContratoApiController implements ContratoApi {
     public ResponseEntity<Contrato> obtenerContrato(@ApiParam(value = "",required=true) @PathVariable("idContrato") String idContrato) {
     	Contrato contrato = utilities.buscarContrato(idContrato);                     
         
-    	contrato.add(linkTo(ContratoApi.class).slash(contrato.getIdContrato()).withSelfRel());
-    	
-    	contrato.add(linkTo(ClienteApi.class).slash(contrato.getIdCiente()).withRel("cliente"));
-    	
-    	contrato.add(linkTo(InmuebleApi.class).slash(contrato.getIdInmueble()).withRel("inmueble"));
-    	    	
+    	if(contrato!=null) {
+	    	contrato.add(linkTo(ContratoApi.class).slash(contrato.getIdContrato()).withSelfRel());
+	    	
+	    	contrato.add(linkTo(ClienteApi.class).slash(contrato.getIdCiente()).withRel("cliente"));
+	    	
+	    	contrato.add(linkTo(InmuebleApi.class).slash(contrato.getIdInmueble()).withRel("inmueble"));
+    	}
     	HttpHeaders responseHeaders = new HttpHeaders();                          
     	responseHeaders.setExpires(1000);                                         
     	return new ResponseEntity<Contrato>(contrato,responseHeaders,HttpStatus.OK);
