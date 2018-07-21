@@ -30,6 +30,19 @@ public class Cliente   {
 
   @JsonProperty("telefono")
   private String telefono = null;
+  
+  
+  public Cliente () {}
+  
+	public Cliente(String idCliente, String tipoDocumento, String nombre, String direccion, String telefono) {
+		
+		this.idCliente = idCliente;
+		this.tipoDocumento = tipoDocumento;
+		this.nombre = nombre;
+		this.direccion = direccion;
+		this.telefono = telefono;
+
+	}
 
   public Cliente idCliente(String idCliente) {
     this.idCliente = idCliente;
@@ -40,9 +53,7 @@ public class Cliente   {
    * Codigo del documento de identidad del cliente
    * @return idCliente
   **/
-  @ApiModelProperty(required = true, value = "Codigo del documento de identidad del cliente")
-  @NotNull
-
+  @ApiModelProperty(value = "Codigo del documento de identidad del cliente")
 
   public String getIdCliente() {
     return idCliente;
@@ -61,10 +72,8 @@ public class Cliente   {
    * Tipo de documento de identidad
    * @return tipoDocumento
   **/
-  @ApiModelProperty(required = true, value = "Tipo de documento de identidad")
-  @NotNull
-
-
+  @ApiModelProperty( value = "Tipo de documento de identidad")
+ 
   public String getTipoDocumento() {
     return tipoDocumento;
   }

@@ -4,8 +4,11 @@ import io.swagger.model.Cliente;
 import io.swagger.model.Contrato;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.configuration.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,9 @@ public class ClienteApiController implements ClienteApi {
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
+    
+    @Autowired
+    private Utilities utilities;
 
     @org.springframework.beans.factory.annotation.Autowired
     public ClienteApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -38,87 +44,58 @@ public class ClienteApiController implements ClienteApi {
     }
 
     public ResponseEntity<Cliente> actualizarCliente(@ApiParam(value = "",required=true) @PathVariable("idCliente") String idCliente,@ApiParam(value = "" ,required=true )  @Valid @RequestBody Cliente body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Cliente>(objectMapper.readValue("{  \"tipoDocumento\" : \"tipoDocumento\",  \"idCliente\" : \"idCliente\",  \"direccion\" : \"direccion\",  \"telefono\" : \"telefono\",  \"nombre\" : \"nombre\"}", Cliente.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Cliente>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+       
+    	Cliente cliente = utilities.actualizarCliente(body, idCliente);
+    	
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
 
-        return new ResponseEntity<Cliente>(HttpStatus.NOT_IMPLEMENTED);
+
+        return new ResponseEntity<Cliente>(cliente,responseHeaders,HttpStatus.OK);
     }
 
     public ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "",required=true) @PathVariable("idCliente") String idCliente) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Cliente>(objectMapper.readValue("{  \"tipoDocumento\" : \"tipoDocumento\",  \"idCliente\" : \"idCliente\",  \"direccion\" : \"direccion\",  \"telefono\" : \"telefono\",  \"nombre\" : \"nombre\"}", Cliente.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Cliente>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<Cliente>(HttpStatus.NOT_IMPLEMENTED);
+        
+    	Cliente cliente = utilities.buscarCliente(idCliente);
+    	
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
+        return new ResponseEntity<Cliente>(cliente,responseHeaders,HttpStatus.OK);
     }
 
     public ResponseEntity<Cliente> eliminaruscarCliente(@ApiParam(value = "",required=true) @PathVariable("idCliente") String idCliente) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Cliente>(objectMapper.readValue("{  \"tipoDocumento\" : \"tipoDocumento\",  \"idCliente\" : \"idCliente\",  \"direccion\" : \"direccion\",  \"telefono\" : \"telefono\",  \"nombre\" : \"nombre\"}", Cliente.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Cliente>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<Cliente>(HttpStatus.NOT_IMPLEMENTED);
+       
+    	Cliente cliente = utilities.eliminarCliente(idCliente);
+        
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
+        
+        return new ResponseEntity<Cliente>(cliente,responseHeaders,HttpStatus.OK);
     }
 
     public ResponseEntity<List<Cliente>> listarClientes() {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<Cliente>>(objectMapper.readValue("[ {  \"tipoDocumento\" : \"tipoDocumento\",  \"idCliente\" : \"idCliente\",  \"direccion\" : \"direccion\",  \"telefono\" : \"telefono\",  \"nombre\" : \"nombre\"}, {  \"tipoDocumento\" : \"tipoDocumento\",  \"idCliente\" : \"idCliente\",  \"direccion\" : \"direccion\",  \"telefono\" : \"telefono\",  \"nombre\" : \"nombre\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Cliente>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+       
+    	List<Cliente> clientes = utilities.getClientes();
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
 
-        return new ResponseEntity<List<Cliente>>(HttpStatus.NOT_IMPLEMENTED);
+
+        return new ResponseEntity<List<Cliente>>(clientes,responseHeaders,HttpStatus.OK);
     }
 
     public ResponseEntity<List<Contrato>> obtenerContratosCliente(@ApiParam(value = "",required=true) @PathVariable("idCliente") String idCliente) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<Contrato>>(objectMapper.readValue("[ {  \"idInmueble\" : \"idInmueble\",  \"fechaInicio\" : \"2000-01-23\",  \"clausula\" : \"clausula\",  \"tipoContrato\" : \"tipoContrato\",  \"idContrato\" : \"idContrato\",  \"fechaFin\" : \"2000-01-23\",  \"idCiente\" : \"idCiente\",  \"Estado\" : \"Estado\"}, {  \"idInmueble\" : \"idInmueble\",  \"fechaInicio\" : \"2000-01-23\",  \"clausula\" : \"clausula\",  \"tipoContrato\" : \"tipoContrato\",  \"idContrato\" : \"idContrato\",  \"fechaFin\" : \"2000-01-23\",  \"idCiente\" : \"idCiente\",  \"Estado\" : \"Estado\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Contrato>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+       
 
         return new ResponseEntity<List<Contrato>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<String> registrarCliente(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Cliente body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("text/plain")) {
-            try {
-                return new ResponseEntity<String>(objectMapper.readValue("\"Cliente registrado exitosamente!\"", String.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type text/plain", e);
-                return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+        
+    	utilities.addCliente(body);
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
 
-        return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<String>("Cliente registrado exitosamente!!",responseHeaders,HttpStatus.CREATED);
     }
 
 }

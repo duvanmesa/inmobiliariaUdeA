@@ -36,5 +36,11 @@ public class SwaggerDocumentationConfig {
                 .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo());
     }
+    
+    @Bean
+    public Utilities utilitiesBean() {
+    	
+    	return new Utilities();
+    }
 
 }
