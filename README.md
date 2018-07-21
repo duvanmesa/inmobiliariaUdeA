@@ -1,10 +1,17 @@
-# equipo de trabajo
+# Equipo de trabajo
 
 - Leonardo Fabio Díaz Alvarez
 - Wilmar Alexander Hoyos V
 - Fabian Andres Lopez Galindez
 - Carlos Andrés Calle Rodríguez
 - Duvan A. Mesa Ruiz
+
+# URL pública del SwaggerHub
+	https://app.swaggerhub.com/apis/inmobiliaria/inmobiliariaAPI/1.0.0
+	
+# URL swagger al desplegar:  
+	http://localhost:9090/inmobiliariaAPI/
+
 
 
 # Swagger generated server
@@ -22,6 +29,6 @@ The underlying library integrating swagger to SpringBoot is [springfox](https://
 Start your server as an simple java application  
 
 You can view the api documentation in swagger-ui by pointing to  
-http://localhost:8080/  
+http://localhost:9090/inmobiliariaAPI/  
 
 Change default port value in application.properties
