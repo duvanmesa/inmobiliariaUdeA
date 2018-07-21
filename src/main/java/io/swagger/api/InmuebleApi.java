@@ -24,13 +24,14 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 @Api(value = "inmueble", description = "the inmueble API")
+@RequestMapping(value = "/inmueble")
 public interface InmuebleApi {
 
     @ApiOperation(value = "Actualizar inmueble", nickname = "actualizarInmueble", notes = "Actualizar información del inmueble.", response = Inmueble.class, tags={ "Inmobiliaria", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Actualiza la información del inmueble", response = Inmueble.class),
         @ApiResponse(code = 400, message = "Objeto y/o parametro invalido") })
-    @RequestMapping(value = "/inmueble/{idInmueble}",
+    @RequestMapping(value = "/{idInmueble}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.PUT)
@@ -41,7 +42,7 @@ public interface InmuebleApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Eliminar el inmueble esperado.", response = Inmueble.class),
         @ApiResponse(code = 400, message = "Parametro incorrecto.") })
-    @RequestMapping(value = "/inmueble/{idInmueble}",
+    @RequestMapping(value = "/{idInmueble}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
     ResponseEntity<Inmueble> eliminarInmueble(@ApiParam(value = "",required=true) @PathVariable("idInmueble") String idInmueble);
@@ -50,7 +51,7 @@ public interface InmuebleApi {
     @ApiOperation(value = "Listar inmuebles", nickname = "listarInmueble", notes = "Lista los inmuebles que brinda la inmobiliaria en alquiler", response = Inmueble.class, responseContainer = "List", tags={ "Inmobiliaria","cliente", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Lista los inmuebles de la inmobiliaria", response = Inmueble.class, responseContainer = "List") })
-    @RequestMapping(value = "/inmueble/",
+    @RequestMapping(value = "/",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<Inmueble>> listarInmueble();
@@ -60,17 +61,17 @@ public interface InmuebleApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Obtiene los contratos realizados al inmueble en el tiempo.", response = Contrato.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Parametro invalido") })
-    @RequestMapping(value = "/inmueble/{idInmueble}/contratos",
+    @RequestMapping(value = "/{idInmueble}/contratos",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Contrato>> obtenerContratosInmueble(@ApiParam(value = "",required=true) @PathVariable("idInmueble") String idInmueble);
+    List<Contrato> obtenerContratosInmueble(@ApiParam(value = "",required=true) @PathVariable("idInmueble") String idInmueble);
 
 
     @ApiOperation(value = "Obtener inmueble", nickname = "obtenerInmueble", notes = "Obtener información de un inmueble.", response = Inmueble.class, tags={ "Inmobiliaria","cliente", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Obtiene el inmueble esperado.", response = Inmueble.class),
         @ApiResponse(code = 400, message = "Parametro incorrecto.") })
-    @RequestMapping(value = "/inmueble/{idInmueble}",
+    @RequestMapping(value = "/{idInmueble}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Inmueble> obtenerInmueble(@ApiParam(value = "",required=true) @PathVariable("idInmueble") String idInmueble);
@@ -81,7 +82,7 @@ public interface InmuebleApi {
         @ApiResponse(code = 201, message = "Inmueble creado.", response = String.class),
         @ApiResponse(code = 400, message = "Objeto invalido."),
         @ApiResponse(code = 409, message = "Ya existe un inmueble con el codigo de idetificación ingresado.") })
-    @RequestMapping(value = "/inmueble/",
+    @RequestMapping(value = "/",
         produces = { "text/plain" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)

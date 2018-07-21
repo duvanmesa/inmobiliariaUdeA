@@ -2,6 +2,7 @@ package io.swagger.configuration;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class Utilities {
 		clientePersistence.put("c3", new Cliente("c3","Cedula","Ana Sofia","Castillo","44444"));
 
 		contratoPersistence.put("contrato1", new Contrato("contrato1","arriendo", "05-07-2018","05-12-2018","libre", "ninguna", "c1","inm1"));
+		contratoPersistence.put("contrato3", new Contrato("contrato3","venta", "05-07-2018","05-12-2018","libre", "ninguna", "c1","inm3"));
 		contratoPersistence.put("contrato2", new Contrato("contrato2","arriendo", "05-01-2018","05-06-2019","libre", "ninguna", "c2","inm2"));
 		
 		inmueblePersistence.put("inm1", new Inmueble("inm1", "Apartamento", "Carrera 80 b # 34 c - 04", "Medellìn", 4, BigDecimal.valueOf(1400000), 
@@ -138,6 +140,34 @@ public class Utilities {
 		clientePersistence.remove(id);
 		
 		return contrato;
+	}
+	
+	public List<Contrato> buscarContratoPorCliente(String idCliente) {
+		
+		Enumeration e = contratoPersistence.keys();
+		List<Contrato> listaContrato = new ArrayList<>();
+		while(e.hasMoreElements()) {
+			Contrato contrato = contratoPersistence.get(e.nextElement());
+			if(contrato.getIdCiente().equals(idCliente)) {
+				listaContrato.add(contrato);
+			}
+		}
+		
+		return listaContrato;
+	}
+	
+	public List<Contrato> buscarContratoPorInmueble(String idInmueble) {
+		
+		Enumeration e = contratoPersistence.keys();
+		List<Contrato> listaInmueble = new ArrayList<>();
+		while(e.hasMoreElements()) {
+			Contrato contrato = contratoPersistence.get(e.nextElement());
+			if(contrato.getIdInmueble().equals(idInmueble)) {
+				listaInmueble.add(contrato);
+			}
+		}
+		
+		return listaInmueble;
 	}
 
 }

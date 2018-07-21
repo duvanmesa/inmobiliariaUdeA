@@ -5,32 +5,33 @@
  */
 package io.swagger.api;
 
-import io.swagger.model.Cliente;
-import io.swagger.model.Contrato;
-import io.swagger.annotations.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.model.Cliente;
+import io.swagger.model.Contrato;
+
 @Api(value = "cliente", description = "the cliente API")
+@RequestMapping(value = "/cliente")
 public interface ClienteApi {
 
     @ApiOperation(value = "Actualizar cliente", nickname = "actualizarCliente", notes = "Actualiza la información del cliente", response = Cliente.class, tags={ "Inmobiliaria", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Devuelve el cliente actualizado.", response = Cliente.class),
         @ApiResponse(code = 400, message = "Objeto y/o parametro invalido") })
-    @RequestMapping(value = "/cliente/{idCliente}",
+    @RequestMapping(value = "/{idCliente}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.PUT)
@@ -41,7 +42,7 @@ public interface ClienteApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Obtener el cliente esperado.", response = Cliente.class),
         @ApiResponse(code = 400, message = "Parametro incorrecto") })
-    @RequestMapping(value = "/cliente/{idCliente}",
+    @RequestMapping(value = "/{idCliente}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Cliente> buscarCliente(@ApiParam(value = "",required=true) @PathVariable("idCliente") String idCliente);
@@ -51,7 +52,7 @@ public interface ClienteApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Eliminar el cliente esperado.", response = Cliente.class),
         @ApiResponse(code = 400, message = "Parametro incorrecto") })
-    @RequestMapping(value = "/cliente/{idCliente}",
+    @RequestMapping(value = "/{idCliente}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
     ResponseEntity<Cliente> eliminaruscarCliente(@ApiParam(value = "",required=true) @PathVariable("idCliente") String idCliente);
@@ -60,7 +61,7 @@ public interface ClienteApi {
     @ApiOperation(value = "Listar clientes", nickname = "listarClientes", notes = "Lista los clientes de la inmobiliaria.", response = Cliente.class, responseContainer = "List", tags={ "Inmobiliaria", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Lista los clientes de la inmobiliaria", response = Cliente.class, responseContainer = "List") })
-    @RequestMapping(value = "/cliente/",
+    @RequestMapping(value = "/",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<Cliente>> listarClientes();
@@ -70,10 +71,10 @@ public interface ClienteApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Obtener los contratos del cliente", response = Contrato.class, responseContainer = "List"),
         @ApiResponse(code = 400, message = "Parametro incorrecto") })
-    @RequestMapping(value = "/cliente/{idCliente}/contratos",
+    @RequestMapping(value = "/{idCliente}/contratos",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Contrato>> obtenerContratosCliente(@ApiParam(value = "",required=true) @PathVariable("idCliente") String idCliente);
+    List<Contrato> obtenerContratosCliente(@ApiParam(value = "",required=true) @PathVariable("idCliente") String idCliente);
 
 
     @ApiOperation(value = "Registrar cliente", nickname = "registrarCliente", notes = "Registrar un cliente", response = String.class, tags={ "Inmobiliaria", })
@@ -81,7 +82,7 @@ public interface ClienteApi {
         @ApiResponse(code = 201, message = "Cliente registrado", response = String.class),
         @ApiResponse(code = 400, message = "Objeto invalido"),
         @ApiResponse(code = 409, message = "Ya existe un cliente con el documento de identidad ingresado") })
-    @RequestMapping(value = "/cliente/",
+    @RequestMapping(value = "/",
         produces = { "text/plain" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)

@@ -23,12 +23,13 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 @Api(value = "contrato", description = "the contrato API")
+@RequestMapping(value = "/contrato")
 public interface ContratoApi {
 
     @ApiOperation(value = "Crear contrato", nickname = "crearContrato", notes = "Crear contrato para un inmueble y un cliente", response = String.class, tags={ "Inmobiliaria", })
     @ApiResponses(value = { 
         @ApiResponse(code = 201, message = "Crea un contrato", response = String.class) })
-    @RequestMapping(value = "/contrato/",
+    @RequestMapping(value = "/",
         produces = { "text/plain" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
@@ -39,7 +40,7 @@ public interface ContratoApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Elimina un contrato", response = Contrato.class),
         @ApiResponse(code = 400, message = "Parametro incorrecto") })
-    @RequestMapping(value = "/contrato/{idContrato}",
+    @RequestMapping(value = "/{idContrato}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
     ResponseEntity<Contrato> eliminarContrato(@ApiParam(value = "",required=true) @PathVariable("idContrato") String idContrato);
@@ -49,7 +50,7 @@ public interface ContratoApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "Obtiene el contrato esperado.", response = Contrato.class),
         @ApiResponse(code = 400, message = "Parametro incorrecto") })
-    @RequestMapping(value = "/contrato/{idContrato}",
+    @RequestMapping(value = "/{idContrato}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Contrato> obtenerContrato(@ApiParam(value = "",required=true) @PathVariable("idContrato") String idContrato);

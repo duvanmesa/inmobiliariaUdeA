@@ -1,6 +1,6 @@
 package io.swagger.api;
 
-import java.io.IOException;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.annotations.ApiParam;
 import io.swagger.configuration.Utilities;
-import io.swagger.model.Cliente;
 import io.swagger.model.Contrato;
 
 @Controller
@@ -60,6 +59,12 @@ public class ContratoApiController implements ContratoApi {
     public ResponseEntity<Contrato> obtenerContrato(@ApiParam(value = "",required=true) @PathVariable("idContrato") String idContrato) {
     	Contrato contrato = utilities.buscarContrato(idContrato);                     
         
+    	contrato.add(linkTo(ContratoApi.class).slash(contrato.getIdContrato()).withSelfRel());
+    	
+    	contrato.add(linkTo(ClienteApi.class).slash(contrato.getIdCiente()).withRel("cliente"));
+    	
+    	contrato.add(linkTo(InmuebleApi.class).slash(contrato.getIdInmueble()).withRel("inmueble"));
+    	    	
     	HttpHeaders responseHeaders = new HttpHeaders();                          
     	responseHeaders.setExpires(1000);                                         
     	return new ResponseEntity<Contrato>(contrato,responseHeaders,HttpStatus.OK);
