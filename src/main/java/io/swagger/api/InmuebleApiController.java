@@ -4,8 +4,12 @@ import io.swagger.model.Contrato;
 import io.swagger.model.Inmueble;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import io.swagger.configuration.Utilities;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,10 @@ public class InmuebleApiController implements InmuebleApi {
 
     private final HttpServletRequest request;
 
+    @Autowired
+    private Utilities utilities;
+
+    
     @org.springframework.beans.factory.annotation.Autowired
     public InmuebleApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
@@ -38,45 +46,36 @@ public class InmuebleApiController implements InmuebleApi {
     }
 
     public ResponseEntity<Inmueble> actualizarInmueble(@ApiParam(value = "",required=true) @PathVariable("idInmueble") String idInmueble,@ApiParam(value = "" ,required=true )  @Valid @RequestBody Inmueble body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Inmueble>(objectMapper.readValue("{  \"idInmueble\" : \"idInmueble\",  \"ciudad\" : \"ciudad\",  \"direccion\" : \"direccion\",  \"valor\" : 6.02745618307040320615897144307382404804229736328125,  \"tipoInmueble\" : \"tipoInmueble\",  \"estrato\" : 0,  \"detalles\" : \"detalles\"}", Inmueble.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Inmueble>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+       
+    	
+    	Inmueble inmueble = utilities.actualizarInmueble(body, idInmueble);
+    	
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
 
-        return new ResponseEntity<Inmueble>(HttpStatus.NOT_IMPLEMENTED);
+
+        return new ResponseEntity<Inmueble>(inmueble,responseHeaders,HttpStatus.OK);
+  
     }
 
     public ResponseEntity<Inmueble> eliminarInmueble(@ApiParam(value = "",required=true) @PathVariable("idInmueble") String idInmueble) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Inmueble>(objectMapper.readValue("{  \"idInmueble\" : \"idInmueble\",  \"ciudad\" : \"ciudad\",  \"direccion\" : \"direccion\",  \"valor\" : 6.02745618307040320615897144307382404804229736328125,  \"tipoInmueble\" : \"tipoInmueble\",  \"estrato\" : 0,  \"detalles\" : \"detalles\"}", Inmueble.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Inmueble>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
 
-        return new ResponseEntity<Inmueble>(HttpStatus.NOT_IMPLEMENTED);
+		Inmueble inmueble = utilities.eliminarInmueble(idInmueble);
+        
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
+        
+        return new ResponseEntity<Inmueble>(inmueble,responseHeaders,HttpStatus.OK);    	
+    	
     }
 
     public ResponseEntity<List<Inmueble>> listarInmueble() {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<Inmueble>>(objectMapper.readValue("[ {  \"idInmueble\" : \"idInmueble\",  \"ciudad\" : \"ciudad\",  \"direccion\" : \"direccion\",  \"valor\" : 6.02745618307040320615897144307382404804229736328125,  \"tipoInmueble\" : \"tipoInmueble\",  \"estrato\" : 0,  \"detalles\" : \"detalles\"}, {  \"idInmueble\" : \"idInmueble\",  \"ciudad\" : \"ciudad\",  \"direccion\" : \"direccion\",  \"valor\" : 6.02745618307040320615897144307382404804229736328125,  \"tipoInmueble\" : \"tipoInmueble\",  \"estrato\" : 0,  \"detalles\" : \"detalles\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Inmueble>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+    	
+		List<Inmueble> inmueble = utilities.getInmuebles();
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
 
-        return new ResponseEntity<List<Inmueble>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<List<Inmueble>>(inmueble,responseHeaders,HttpStatus.OK);    	
     }
 
     public ResponseEntity<List<Contrato>> obtenerContratosInmueble(@ApiParam(value = "",required=true) @PathVariable("idInmueble") String idInmueble) {
@@ -94,31 +93,23 @@ public class InmuebleApiController implements InmuebleApi {
     }
 
     public ResponseEntity<Inmueble> obtenerInmueble(@ApiParam(value = "",required=true) @PathVariable("idInmueble") String idInmueble) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Inmueble>(objectMapper.readValue("{  \"idInmueble\" : \"idInmueble\",  \"ciudad\" : \"ciudad\",  \"direccion\" : \"direccion\",  \"valor\" : 6.02745618307040320615897144307382404804229736328125,  \"tipoInmueble\" : \"tipoInmueble\",  \"estrato\" : 0,  \"detalles\" : \"detalles\"}", Inmueble.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Inmueble>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
 
-        return new ResponseEntity<Inmueble>(HttpStatus.NOT_IMPLEMENTED);
+		Inmueble inmueble = utilities.buscarInmueble(idInmueble);
+    	
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
+        return new ResponseEntity<Inmueble>(inmueble,responseHeaders,HttpStatus.OK);
+        
     }
 
     public ResponseEntity<String> registrarInmueble(@ApiParam(value = "" ,required=true )  @Valid @RequestBody Inmueble body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("text/plain")) {
-            try {
-                return new ResponseEntity<String>(objectMapper.readValue("\"Inmueble registrado exitosamente!\"", String.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type text/plain", e);
-                return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
 
-        return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
+		utilities.addInmueble(body);
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setExpires(1000);
+
+        return new ResponseEntity<String>("Inmueble registrado exitosamente!!",responseHeaders,HttpStatus.CREATED);
+    
     }
 
 }
