@@ -1,5 +1,6 @@
 package io.swagger.configuration;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -23,7 +24,14 @@ public class Utilities {
 		clientePersistence.put("23457888", new Cliente("23457888","Cedula","Ana Sofia","Castillo","44444"));
 		contrato = new Hashtable<String,Contrato>();
 		inmueble = new Hashtable<String,Inmueble> ();
+		inmueble.put("1", new Inmueble("1", "Apartamento", "Carrera 80 b # 34 c - 04", "Medellìn", 4, BigDecimal.valueOf(1400000), 
+				"3 habitaciones, dos baños, cocina integral, garage cubierto, "));
+		inmueble.put("2", new Inmueble("2", "Casa", "Carrera 70 b # 35 c - 04", "Medellìn", 3, BigDecimal.valueOf(1100000), 
+				"3 habitaciones, dos baños, cocina integral, garage cubierto, "));
+		inmueble.put("2", new Inmueble("3", "Apartamento", "Carrera 80 b # 84 c - 04", "Medellìn", 5, BigDecimal.valueOf(950000), 
+				"4 habitaciones, dos baños, cocina integral, garage compartido, "));
 	}
+	
 	public void addCliente(Cliente cliente) {
 		
 		this.clientePersistence.put(cliente.getIdCliente(), cliente);
@@ -59,6 +67,51 @@ public class Utilities {
 		clientePersistence.remove(id);
 		
 		return cliente;
+	}
+	
+	// inmuebles
+	
+	public List<Inmueble> getInmuebles() {
+		
+		List<Inmueble> inmuebles = new ArrayList<Inmueble>(inmueble.values());
+		return inmuebles;
+	} 
+	
+	public void addInmueble(Inmueble inmuebleRequest) {
+		
+		this.inmueble.put(inmuebleRequest.getIdInmueble(), inmuebleRequest);
+		
+	}
+	
+	public Inmueble buscarInmueble(String id) {
+		
+		return inmueble.get(id);
+	}
+	
+	public Inmueble actualizarInmueble(Inmueble inmuebleRequest,String id) {
+		
+		Inmueble inmuebleOriginal = inmueble.get(id);
+		inmuebleOriginal.setCiudad(inmuebleRequest.getCiudad());
+		inmuebleOriginal.setDetalles(inmuebleRequest.getDetalles());
+		inmuebleRequest.setDireccion(inmuebleRequest.getDireccion());
+		inmuebleRequest.setEstrato(inmuebleRequest.getEstrato());
+		inmuebleRequest.setTipoInmueble(inmuebleRequest.getTipoInmueble());
+
+		return inmuebleRequest;
+		
+	}
+	
+	// Crear contrato
+	
+	public void addContrato(Contrato contratoRequest) {
+		
+		this.contrato.put(contratoRequest.getIdContrato(), contratoRequest);
+		
+	}
+	
+	public Contrato buscarContrato(String id) {
+		
+		return contrato.get(id);
 	}
 
 }

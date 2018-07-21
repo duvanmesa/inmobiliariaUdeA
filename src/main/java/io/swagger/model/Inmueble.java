@@ -37,9 +37,23 @@ public class Inmueble   {
 
   @JsonProperty("detalles")
   private String detalles = null;
+  
+  
+  
+  public Inmueble(String idInmueble, String tipoInmueble, String direccion, String ciudad, Integer estrato,
+		BigDecimal valor, String detalles) {
+	super();
+	this.idInmueble = idInmueble;
+	this.tipoInmueble = tipoInmueble;
+	this.direccion = direccion;
+	this.ciudad = ciudad;
+	this.estrato = estrato;
+	this.valor = valor;
+	this.detalles = detalles;
+  }
 
   public Inmueble idInmueble(String idInmueble) {
-    this.idInmueble = idInmueble;
+    this.idInmueble = idInmueble;    
     return this;
   }
 
