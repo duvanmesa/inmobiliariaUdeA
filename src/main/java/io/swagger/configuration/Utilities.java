@@ -23,16 +23,19 @@ public class Utilities {
 		inmueblePersistence = new Hashtable<String,Inmueble> ();
 		
 		
-		clientePersistence.put("123456789", new Cliente("123456789","Cedula","Carlos","Laureles","555"));
-		clientePersistence.put("3245678", new Cliente("3245678","Cedula","Andres","Poblado","6666"));
-		clientePersistence.put("23457888", new Cliente("23457888","Cedula","Ana Sofia","Castillo","44444"));
-
 		
-		inmueblePersistence.put("1", new Inmueble("1", "Apartamento", "Carrera 80 b # 34 c - 04", "Medellìn", 4, BigDecimal.valueOf(1400000), 
+		clientePersistence.put("c1", new Cliente("c1","Cedula","Carlos","Laureles","555"));
+		clientePersistence.put("c2", new Cliente("c2","Cedula","Andres","Poblado","6666"));
+		clientePersistence.put("c3", new Cliente("c3","Cedula","Ana Sofia","Castillo","44444"));
+
+		contratoPersistence.put("contrato1", new Contrato("contrato1","arriendo", "05-07-2018","05-12-2018","libre", "ninguna", "c1","inm1"));
+		contratoPersistence.put("contrato2", new Contrato("contrato2","arriendo", "05-01-2018","05-06-2019","libre", "ninguna", "c2","inm2"));
+		
+		inmueblePersistence.put("inm1", new Inmueble("inm1", "Apartamento", "Carrera 80 b # 34 c - 04", "Medellìn", 4, BigDecimal.valueOf(1400000), 
 				"3 habitaciones, dos baños, cocina integral, garage cubierto, "));
-		inmueblePersistence.put("2", new Inmueble("2", "Casa", "Carrera 70 b # 35 c - 04", "Medellìn", 3, BigDecimal.valueOf(1100000), 
+		inmueblePersistence.put("inm2", new Inmueble("inm2", "Casa", "Carrera 70 b # 35 c - 04", "Medellìn", 3, BigDecimal.valueOf(1100000), 
 				"3 habitaciones, dos baños, cocina integral, garage cubierto, "));
-		inmueblePersistence.put("2", new Inmueble("3", "Apartamento", "Carrera 80 b # 84 c - 04", "Medellìn", 5, BigDecimal.valueOf(950000), 
+		inmueblePersistence.put("inm3", new Inmueble("inm3", "Apartamento", "Carrera 80 b # 84 c - 04", "Medellìn", 5, BigDecimal.valueOf(950000), 
 				"4 habitaciones, dos baños, cocina integral, garage compartido, "));
 	}
 	

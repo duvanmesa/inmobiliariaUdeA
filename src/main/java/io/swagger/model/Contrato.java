@@ -24,10 +24,10 @@ public class Contrato   {
   private String tipoContrato = null;
 
   @JsonProperty("fechaInicio")
-  private LocalDate fechaInicio = null;
+  private String fechaInicio = null;
 
   @JsonProperty("fechaFin")
-  private LocalDate fechaFin = null;
+  private String fechaFin = null;
 
   @JsonProperty("Estado")
   private String estado = null;
@@ -45,8 +45,33 @@ public class Contrato   {
     this.idContrato = idContrato;
     return this;
   }
+  
+  
+  
+  public Contrato() {
+	  
+  }
+  
 
-  /**
+  public Contrato(String idContrato, String tipoContrato, String fechaInicio, String fechaFin, String estado,
+		String clausula, String idCiente, String idInmueble) {
+	super();
+	this.idContrato = idContrato;
+	this.tipoContrato = tipoContrato;
+	this.fechaInicio = fechaInicio;
+	this.fechaFin = fechaFin;
+	this.estado = estado;
+	this.clausula = clausula;
+	this.idCiente = idCiente;
+	this.idInmueble = idInmueble;
+}
+
+
+
+
+
+
+/**
    * Identificador del contrato
    * @return idContrato
   **/
@@ -82,7 +107,7 @@ public class Contrato   {
     this.tipoContrato = tipoContrato;
   }
 
-  public Contrato fechaInicio(LocalDate fechaInicio) {
+  public Contrato fechaInicio(String fechaInicio) {
     this.fechaInicio = fechaInicio;
     return this;
   }
@@ -95,15 +120,15 @@ public class Contrato   {
 
   @Valid
 
-  public LocalDate getFechaInicio() {
+  public String getFechaInicio() {
     return fechaInicio;
   }
 
-  public void setFechaInicio(LocalDate fechaInicio) {
+  public void setFechaInicio(String fechaInicio) {
     this.fechaInicio = fechaInicio;
   }
 
-  public Contrato fechaFin(LocalDate fechaFin) {
+  public Contrato fechaFin(String fechaFin) {
     this.fechaFin = fechaFin;
     return this;
   }
@@ -116,11 +141,11 @@ public class Contrato   {
 
   @Valid
 
-  public LocalDate getFechaFin() {
+  public String getFechaFin() {
     return fechaFin;
   }
 
-  public void setFechaFin(LocalDate fechaFin) {
+  public void setFechaFin(String fechaFin) {
     this.fechaFin = fechaFin;
   }
 
